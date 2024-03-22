@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebApi.Enums;
 
 namespace WebApi.DTOs.Request.Cursos
 {
@@ -8,6 +9,6 @@ namespace WebApi.DTOs.Request.Cursos
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O Campo {0} é Obrigatório.")]
-        public string Nivel { get; set; }
+        public EnumCursoNivel Nivel { get; set; }
     }
 }

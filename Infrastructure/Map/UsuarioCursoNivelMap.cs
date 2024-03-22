@@ -12,7 +12,7 @@ namespace WebApi.Infrastructure.Map
         {
             builder.HasKey(x => x.Id);
             builder.HasOne<CursosDadosModel>(x => x.CursoDados).WithMany().HasForeignKey(x => x.CursoDadosId);
-            builder.HasOne<UsuarioCadastroRequest>(x => x.Usuario).WithMany().HasForeignKey(x => x.UsuarioId); ;
+            builder.HasOne<UsuarioCadastroRequest>(x => x.Usuario).WithMany().HasForeignKey(x => x.UsuarioId);
             builder.HasOne<CursoNivelModel>(x => x.CursoNivel).WithMany().HasForeignKey(x => x.CursoNivelId);
         }
     }

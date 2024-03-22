@@ -8,16 +8,11 @@ namespace WebApi.DTOs.Request.Cursos
         [Key]
         public int Id { get; set; }
 
-        // Remova a propriedade IdCurso daqui
-        // public List<CursosDadosModel> IdCurso { get; set; }
-
-        //[Required(ErrorMessage = "O Campo {0} é Obrigatório.")]
-        //public int IdCursoId { get; set; } // Adicione a chave estrangeira de IdCurso
-
-        //[Required(ErrorMessage = "O Campo {0} é Obrigatório.")]
+        [Required(ErrorMessage = "O Campo {0} é Obrigatório.")]
         public int CursoNivelId { get; set; }
         public CursoNivelModel CursoNivel { get; set; }
 
+        [Required(ErrorMessage = "O Campo {0} é Obrigatório.")]
         public int CursoDadosId { get; set; }
         public CursosDadosModel CursoDados { get; set; }
 

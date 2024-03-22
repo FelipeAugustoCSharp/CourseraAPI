@@ -53,7 +53,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer
 ));
 
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<ICursoContent, CursoService>();
 
 var app = builder.Build();
 
