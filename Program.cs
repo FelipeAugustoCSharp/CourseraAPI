@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 using WebApi.Helper;
 using WebApi.Infrastructure;
@@ -14,7 +15,33 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Scheme = "Bearer"
+    }); ;
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    }) ;
+});
 
 #region [JWT Auth]
 builder.Services.AddAuthentication(x =>
@@ -34,7 +61,6 @@ builder.Services.AddAuthentication(x =>
         };
     }
 ) ;
-   
 builder.Services.AddTransient<GerarToken>();
 #endregion
 
@@ -79,4 +105,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

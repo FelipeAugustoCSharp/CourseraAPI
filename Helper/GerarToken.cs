@@ -21,6 +21,9 @@ namespace WebApi.Helper
 
             var Key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
 
+
+
+
             var credentials = new SigningCredentials(new SymmetricSecurityKey(Key), SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor

@@ -18,6 +18,7 @@ namespace WebApi.Controllers
         {
             _cursoService = cS;
         }
+        [Authorize]
         [HttpGet("buscar")]
         public async Task<ActionResult<Response<IEnumerable<CursoContent>>>> GetCursos()
         {
@@ -31,7 +32,8 @@ namespace WebApi.Controllers
             Response<IEnumerable<CursosDadosModel>> response = await _cursoService.BannerCursos();
             return Ok(response);
         }
-        
+
+        [Authorize]
         [HttpGet("{nivel}")]
         public async Task<ActionResult<Response<IEnumerable<CursoContent>>>> NivelCursos(int nivel)
         {

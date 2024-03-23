@@ -8,7 +8,7 @@ namespace WebApi.Interfaces
     public interface ICursoContent
     {
         Task<Response<IEnumerable<CursoContent>>> ObterCursos();
-        Task<Response<IEnumerable<CursosDadosModel>>> BannerCursos();
         Task<Response<IEnumerable<CursoContent>>> NivelCursos(int nivel);
+        Task<Response<IEnumerable<CursosDadosModel>>> BannerCursos();
     }
 }
