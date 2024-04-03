@@ -24,7 +24,7 @@ namespace WebApi.Services
         {
             Response<UsuarioCadastroRequest> response = new Response<UsuarioCadastroRequest>();
 
-            if (cadastro == null)
+            if (cadastro == null || cadastro.Senha != cadastro.ConfirmSenha)
             {
                 response.SetData(null);
                 response.SetMessage("Erro ao cadastrar, verifique todos os campos.");
@@ -33,7 +33,7 @@ namespace WebApi.Services
             }
 
             try
-            {
+            {              
                 var UserExists = await _datacontext.UsuarioCadastro.FirstOrDefaultAsync(x => x.Email  == cadastro.Email);
                 if (UserExists != null) 
                 {
@@ -86,12 +86,20 @@ namespace WebApi.Services
 
                 if (login.Senha == usuario.Senha)
                 {
-                    GerarToken gerarToken = new GerarToken(_configuration);
+                    GerarToken gerarToken = new GerarToken(_configuration, login);
                     login.Id = usuario.Id;
-                    response.SetToken(gerarToken.GenerateToken(login));
+
+                    response.SetToken(gerarToken.GenerateToken());
+                    response.SetRefreshToken(gerarToken.RefreshToken());
 
                     response.SetData(login);
-                    response.SetMessage($"Usu�rio logado com sucesso!");
+                    response.SetMessage($"Usuario logado com sucesso!");
+                }
+                else
+                {
+                    response.SetData(null);
+                    response.SetMessage($"Erro ao Logar, tente novamente!");
+                    response.SetSuccess(false);
                 }
             }
             catch (Exception ex)

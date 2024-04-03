@@ -11,6 +11,9 @@ namespace WebApi.DTO.Response
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? Token { get; private set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? RefreshToken { get; private set; }
+
         public void SetData(T dados) =>        
             Dados = dados;
         
@@ -26,6 +29,8 @@ namespace WebApi.DTO.Response
         public void SetToken(string tok) =>
             Token = tok;
 
+        public void SetRefreshToken(string refreshtoken) =>
+            RefreshToken = refreshtoken;
 
         public Response() { }
     }

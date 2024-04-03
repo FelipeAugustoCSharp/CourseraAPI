@@ -10,5 +10,7 @@ namespace WebApi.Interfaces
         Task<Response<IEnumerable<CursoContent>>> ObterCursos();
         Task<Response<IEnumerable<CursoContent>>> NivelCursos(int nivel);
         Task<Response<IEnumerable<CursosDadosModel>>> BannerCursos();
+        Task<Response<IEnumerable<UsuarioCursoNivelModel>>> InscreverCurso(UsuarioCursoNivelModel usuario);
+        Task<Response<IEnumerable<UsuarioCursoNivelModel>>> ObterCursosUsuario(int usuarioId);
     }
 }

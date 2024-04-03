@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using WebApi.DTO.Request.Usuario;
 using WebApi.Helper;
 using WebApi.Infrastructure;
 using WebApi.Interfaces;
@@ -55,6 +56,8 @@ builder.Services.AddAuthentication(x =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value)),
             ValidateIssuer = false,
             ValidateAudience = false
@@ -62,6 +65,7 @@ builder.Services.AddAuthentication(x =>
     }
 ) ;
 builder.Services.AddTransient<GerarToken>();
+builder.Services.AddTransient<UsuarioLoginRequest>();
 #endregion
 
 #region [DEFAULT CORS]
@@ -89,16 +93,16 @@ var app = builder.Build();
 #endregion
 
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseExceptionHandler("/error-development");
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-else
-{
-    app.UseExceptionHandler("/error");
-}
+//}
+//else
+//{
+//    app.UseExceptionHandler("/error");
+//}
 
 app.UseHttpsRedirection();
 
